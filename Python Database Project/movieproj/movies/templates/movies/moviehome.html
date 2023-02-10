@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+  <head>
+    <style>
+    body {
+            background-color: rgb(81, 82, 83);
+            color: rgb(197, 195, 195);
+         }
+    .img-container {
+        text-align: center;
+        display: block;
+      }
+      .site-header
+      {
+        border-radius: 5px; background: rgba(0, 0, 0, 0.548); padding: 10px; 
+           
+          margin-bottom: 10px;
+
+             color: white;
+      }
+    img.rounded-corners {
+  border-radius: 25px;
+}
+h1 {
+            border-radius: 100px; background: rgba(0, 0, 0, 0.548); padding: 20px; 
+            margin-top: 10px;
+            margin-bottom: 25px;
+            margin-right: 500px;
+            margin-left: 500px;
+             color: white;
+         }
+  li {
+            border-radius: 50px; background: rgba(0, 0, 0, 0.37); padding: 20px;
+            margin-right: 300px;
+            margin-left: 300px;
+         }
+a:link {
+  color: rgb(151, 245, 248);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: rgb(255, 215, 255);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(83, 122, 250);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+    </style>
+  </head>
+<header class="site-header">
+  <nav>
+    <div class="container">
+      <a>
+      {% if not user.is_superuser %}
+      <a class="nav-item nav-link" href="{% url 'leave-review' %}">Create Review </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+      {% endif %}
+          <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          {% if user.is_superuser %}
+          <a class="nav-item nav-link" href="/admin">MANAGE APPLICATION</a>
+          {% endif %}
+      </a>    
+    </div>
+  </nav>
+</header>
+
+
+<div class="img-container">
+  <h1>Current Ratable Movies</h1>
+  <ul style="list-style-type:none;">
+  <li>
+    {% for movie in movies %}
+    <a href="{% url 'movie-detail' movie.id %}">
+      <img class ="rounded-corners" src={{ movie.Imageurl }}>
+    </a>
+      <h3>{{ movie.Title }}</h3>
+      <p>{{ movie.Synopsis }}</p>
+    {% endfor %}
+  </li>
+  </ul>
+</body>
+</div>
+</html>
